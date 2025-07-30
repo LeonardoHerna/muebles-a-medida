@@ -3,22 +3,22 @@ import React, { useEffect, useState } from "react";
 const services = [
   {
     title: "Diseño Personalizado",
-    img: "/Imagenes/img-benefits-perzo.jpeg",
+    img: "Imagenes/img-benefits-perzo.jpeg",
     description: "Cada mueble se adapta a tus espacios, estilo y necesidades.",
   },
   {
     title: "Materiales de Calidad",
-    img: "/Imagenes/img-benefits-material.jpeg",
+    img: "Imagenes/img-benefits-material.jpeg",
     description: "Trabajamos con maderas nobles y herrajes de primera línea.",
   },
   {
     title: "Montaje Profesional",
-    img: "/Imagenes/img-benefits-montaje.jpeg",
+    img: "Imagenes/img-benefits-montaje.jpeg",
     description: "Nuestro equipo asegura una instalación precisa y limpia.",
   },
   {
     title: "Entrega Puntual",
-    img: "/Imagenes/img-benefits-entrega.jpeg",
+    img: "Imagenes/img-benefits-entrega.jpeg",
     description: "Cumplimos con los plazos acordados para tu tranquilidad.",
   },
 ];

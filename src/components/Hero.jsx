@@ -15,7 +15,7 @@ export default function Hero() {
       }}
     >
       <img
-        src="/Imagenes/img-hero.jpeg" 
+        src="Imagenes/img-hero.jpeg" 
         alt="Mueble personalizado"
         style={{
           width: "100%",

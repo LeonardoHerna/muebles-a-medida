@@ -2,10 +2,57 @@ import React, { useEffect, useState } from "react";
 
 export default function ContactForm() {
   const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({
+    nombre: "",
+    telefono: "",
+    ubicacion: "",
+    mensaje: "",
+  });
+
+  const [enviando, setEnviando] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setTimeout(() => setShow(true), 100);
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setEnviando(true);
+    setSuccess(false);
+    setError("");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setSuccess(true);
+        setFormData({
+          nombre: "",
+          telefono: "",
+          ubicacion: "",
+          mensaje: "",
+        });
+      } else {
+        setError(data.error || "Error al enviar el formulario");
+      }
+    } catch (err) {
+      setError("Error al conectar con el servidor");
+    } finally {
+      setEnviando(false);
+    }
+  };
 
   return (
     <section
@@ -22,10 +69,7 @@ export default function ContactForm() {
       }}
     >
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          alert("Formulario enviado correctamente ✅");
-        }}
+        onSubmit={handleSubmit}
         style={{
           backgroundColor: "#ffffff",
           padding: "40px",
@@ -48,15 +92,40 @@ export default function ContactForm() {
           Reservá tu servicio
         </h2>
 
-        <Input placeholder="Nombre completo" name="nombre" type="text" />
-        <Input placeholder="Teléfono" name="telefono" type="tel" />
-        <Input placeholder="Ubicación (barrio o ciudad)" name="ubicacion" type="text" />
-        <TextArea placeholder="Contanos qué tipo de mueble estás buscando..." name="mensaje" rows="4" />
+        <Input
+          placeholder="Nombre completo"
+          name="nombre"
+          type="text"
+          value={formData.nombre}
+          onChange={handleChange}
+        />
+        <Input
+          placeholder="Teléfono"
+          name="telefono"
+          type="tel"
+          value={formData.telefono}
+          onChange={handleChange}
+        />
+        <Input
+          placeholder="Ubicación (barrio o ciudad)"
+          name="ubicacion"
+          type="text"
+          value={formData.ubicacion}
+          onChange={handleChange}
+        />
+        <TextArea
+          placeholder="Contanos qué tipo de mueble estás buscando..."
+          name="mensaje"
+          rows="4"
+          value={formData.mensaje}
+          onChange={handleChange}
+        />
 
         <button
           type="submit"
+          disabled={enviando}
           style={{
-            backgroundColor: "#ff7f50",
+            backgroundColor: enviando ? "#ffab91" : "#ff7f50",
             color: "#fff",
             padding: "14px",
             width: "100%",
@@ -68,22 +137,37 @@ export default function ContactForm() {
             marginTop: "10px",
             transition: "background-color 0.3s ease, transform 0.2s ease",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+          onMouseEnter={(e) =>
+            !enviando && (e.currentTarget.style.transform = "translateY(-2px)")
+          }
+          onMouseLeave={(e) =>
+            !enviando && (e.currentTarget.style.transform = "translateY(0)")
+          }
         >
-          Enviar
+          {enviando ? "Enviando..." : "Enviar"}
         </button>
+
+        {success && (
+          <p style={{ color: "green", marginTop: "10px", textAlign: "center" }}>
+            ¡Mensaje enviado correctamente!
+          </p>
+        )}
+        {error && (
+          <p style={{ color: "red", marginTop: "10px", textAlign: "center" }}>{error}</p>
+        )}
       </form>
     </section>
   );
 }
 
-function Input({ placeholder, name, type }) {
+function Input({ placeholder, name, type, value, onChange }) {
   return (
     <input
       type={type}
       name={name}
       placeholder={placeholder}
+      value={value}
+      onChange={onChange}
       required
       style={{
         width: "100%",
@@ -107,12 +191,14 @@ function Input({ placeholder, name, type }) {
   );
 }
 
-function TextArea({ placeholder, name, rows }) {
+function TextArea({ placeholder, name, rows, value, onChange }) {
   return (
     <textarea
       name={name}
       placeholder={placeholder}
       rows={rows}
+      value={value}
+      onChange={onChange}
       required
       style={{
         width: "100%",
@@ -136,3 +222,4 @@ function TextArea({ placeholder, name, rows }) {
     />
   );
 }
+

@@ -3,19 +3,19 @@ import React, { useEffect, useState } from "react";
 const projects = [
   {
     title: "Cocina moderna a medida",
-    img: "/Imagenes/img-projects-cocina.jpeg",
+    img: "Imagenes/img-projects-cocina.jpeg",
   },
   {
     title: "Placard empotrado",
-    img: "/Imagenes/img-projects-placard.jpeg",
+    img: "Imagenes/img-projects-placard.jpeg",
   },
   {
     title: "Mueble de baño minimalista",
-    img: "/Imagenes/img-projects-baño.jpeg",
+    img: "Imagenes/img-projects-baño.jpeg",
   },
   {
     title: "Estantería de diseño",
-    img: "/Imagenes/img-projects-estanteria.jpeg",
+    img: "Imagenes/img-projects-estanteria.jpeg",
   },
 ];
 

@@ -4,17 +4,17 @@ const testimonials = [
   {
     name: "María G.",
     comment: "Encargué un placard a medida y quedó perfecto. Muy profesionales y puntuales.",
-    img: "/Imagenes/img-testimonials-mujer.jpeg"
+    img: "Imagenes/img-testimonials-mujer.jpeg"
   },
   {
     name: "Luis R.",
     comment: "Me ayudaron a diseñar una cocina que se adapta 100% a mi espacio. Recomendados.",
-    img: "/Imagenes/img-testimonials-hombre.jpeg"
+    img: "Imagenes/img-testimonials-hombre.jpeg"
   },
   {
     name: "Ana F.",
     comment: "Excelente atención y materiales de calidad. Estoy feliz con mi mueble.",
-    img: "/Imagenes/img-testimonials-mujer2.jpeg"
+    img: "Imagenes/img-testimonials-mujer2.jpeg"
   }
 ];
 
