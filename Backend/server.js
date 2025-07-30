@@ -8,7 +8,9 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: "https://LeonardoHernan.github.io"
+}));
 app.use(express.json());
 
 // Rutas
