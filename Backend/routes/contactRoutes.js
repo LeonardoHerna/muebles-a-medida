@@ -9,7 +9,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { nombre, telefono, ubicacion, mensaje } = req.body;
-console.log("Datos recibidos:", req.body);
+  console.log("🔥 Llega petición POST /api/contact");
+  console.log("📥 Datos recibidos:", req.body);
 
   if (!nombre || !telefono || !ubicacion || !mensaje) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });

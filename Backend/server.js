@@ -9,8 +9,9 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-    origin: "https://LeonardoHernan.github.io"
+    origin: ["https://leonardoherna.github.io", "http://localhost:3000"]
 }));
+  
 app.use(express.json());
 
 // Rutas
