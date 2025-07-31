@@ -7,7 +7,7 @@ dotenv.config();
 
 const router = express.Router();
 
-router.post("/api/contact", async (req, res) => {
+router.post("/", async (req, res) => {
   const { nombre, telefono, ubicacion, mensaje } = req.body;
 console.log("Datos recibidos:", req.body);
 
