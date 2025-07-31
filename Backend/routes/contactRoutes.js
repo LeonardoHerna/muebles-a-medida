@@ -7,8 +7,9 @@ dotenv.config();
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/contact", async (req, res) => {
   const { nombre, telefono, ubicacion, mensaje } = req.body;
+console.log("Datos recibidos:", req.body);
 
   if (!nombre || !telefono || !ubicacion || !mensaje) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
 
     // Configurar el transporte para enviar mail
     const transporter = nodemailer.createTransport({
-      service: "gmail", // Podés cambiar a otro proveedor si querés
+      service: "gmail", 
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -31,18 +32,18 @@ router.post("/", async (req, res) => {
     // Configurar contenido del email
     const mailOptions = {
       from: `"Landing Muebles" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL, // Puede ser igual a EMAIL_USER
+      to: process.env.RECEIVER_EMAIL, 
       subject: "Nuevo mensaje del formulario",
-      html: `
-        <p><strong>Nombre:</strong> Juan Pérez</p>
-<p><strong>Teléfono:</strong> 099123456</p>
-<p><strong>Ubicación:</strong> Montevideo</p>
-<p><strong>Mensaje:</strong></p>
-<p style="background-color: #f4f4f4; padding: 10px; border-left: 4px solid #007bff;">
-  Me interesa un mueble a medida para la cocina.
-</p>
-      `,
-    };
+    html: `
+  <p><strong>Nombre:</strong> ${nombre}</p>
+  <p><strong>Teléfono:</strong> ${telefono}</p>
+  <p><strong>Ubicación:</strong> ${ubicacion}</p>
+  <p><strong>Mensaje:</strong></p>
+  <p style="background-color: #f4f4f4; padding: 10px; border-left: 4px solid #007bff;">
+    ${mensaje}
+  </p>
+`,
+   };
 
     // Enviar el mail
     await transporter.sendMail(mailOptions);
